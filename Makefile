@@ -37,7 +37,7 @@ lint: ## Run all the linters
 	--out-format=tab --tests=false ./...
 
 .PHONY: ci
-ci: setup generate lint test build ## Run all the tests and code checks
+ci: setup lint test build ## Run all the tests and code checks
 
 .PHONY: generate
 generate:
