@@ -16,5 +16,15 @@ jobs:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v1
 
+    - name: Setup
+      run: make setup
+
+    - name: Lint
+      run: $GOPATH/bin/golangci-lint run --enable-all --disable gochecknoinits --disable gochecknoglobals --disable goimports \
+        --out-format=tab --tests=false ./...
+
+    - name: Test
+      run: make test
+
     - name: Build
-      run: make ci
+      run: make build

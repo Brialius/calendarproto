@@ -4,6 +4,7 @@ LDFLAGS=-ldflags "-X=main.version=$(VERSION) -X=main.build=$(BUILD)"
 BUILDFLAGS=$(LDFLAGS)
 PROJECTNAME=calendarproto
 GOEXE := $(shell go env GOEXE)
+GOPATH := $(shell go env GOPATH)
 GOOS := $(shell go env GOOS)
 BIN=bin/$(PROJECTNAME)$(GOEXE)
 IMPORT_PATH := /usr/local/include
