@@ -1,0 +1,21 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+
+message Event {
+    string name = 1;
+    int32 id = 2;
+
+    enum EventType {
+        EVENT = 0;
+        MEETING = 1;
+    }
+
+    EventType type = 3;
+    google.protobuf.Timestamp date = 4;
+    google.protobuf.Timestamp created_at = 5;
+    google.protobuf.Timestamp last_updated = 6;
+}
+
+message EventsMap {
+    map<int32, Event> events = 1;
+}
