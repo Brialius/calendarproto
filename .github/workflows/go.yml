@@ -18,10 +18,11 @@ jobs:
 
     - name: Setup
       run: make setup
-#
-#    - name: Lint
-#      run: $GOPATH/bin/golangci-lint run --enable-all --disable gochecknoinits --disable gochecknoglobals --disable goimports \
-#        --out-format=tab --tests=false ./...
+
+    - name: Lint
+      run: curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s latest && \
+        ./bin/golangci-lint run --enable-all --disable gochecknoinits --disable gochecknoglobals --disable goimports \
+        --out-format=tab --tests=false ./...
 
     - name: Test
       run: make test
