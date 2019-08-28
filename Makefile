@@ -8,6 +8,9 @@ GOPATH := $(shell go env GOPATH)
 GOOS := $(shell go env GOOS)
 BIN=bin/$(PROJECTNAME)$(GOEXE)
 IMPORT_PATH := /usr/local/include
+LINT_PATH := ./bin/golangci-lint
+LINT_PATH_WIN := golangci-lint
+LINT_SETUP := curl -sfL "https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh" | sh -s latest
 IMPORT_PATH_WIN := c:\protobuf\include
 
 ifneq ($(GOOS), windows)
@@ -17,14 +20,16 @@ endif
 
 ifeq ($(GOOS), windows)
 	IMPORT_PATH := $(IMPORT_PATH_WIN)
+	LINT_PATH := $(LINT_PATH_WIN)
 	PWD := $(shell echo %cd%)
+	LINT_SETUP := go install github.com/golangci/golangci-lint/cmd/golangci-lint
 endif
 
 export
 
 .PHONY: setup
 setup: ## Install all the build and lint dependencies
-	go install github.com/golangci/golangci-lint/cmd/golangci-lint
+	$(LINT_SETUP)
 	go install github.com/golang/protobuf/protoc-gen-go
 	go get ./...
 
@@ -34,8 +39,8 @@ test: ## Run all the tests
 
 .PHONY: lint
 lint: ## Run all the linters
-	golangci-lint run --enable-all --disable gochecknoinits --disable gochecknoglobals --disable goimports \
-	--out-format=tab --tests=false ./...
+	$(LINT_PATH) run --enable-all --disable gochecknoinits --disable gochecknoglobals --disable goimports \
+	--out-format=tab --tests=false .
 
 .PHONY: ci
 ci: setup lint test build ## Run all the tests and code checks
