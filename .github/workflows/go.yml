@@ -22,7 +22,8 @@ jobs:
     - name: Prepare Lint
       run: curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s latest
     
-    - name: Lint $GITHUB_WORKSPACE/bin/golangci-lint run --enable-all --disable gochecknoinits --disable gochecknoglobals --disable goimports \
+    - name: Lint 
+      run: $GITHUB_WORKSPACE/bin/golangci-lint run --enable-all --disable gochecknoinits --disable gochecknoglobals --disable goimports \
         --out-format=tab --tests=false ./...
 
     - name: Debug
