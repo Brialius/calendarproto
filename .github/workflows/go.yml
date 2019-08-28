@@ -25,7 +25,7 @@ jobs:
     #- name Lint bin/golangci-lint run --enable-all --disable gochecknoinits --disable gochecknoglobals --disable goimports \
     #    --out-format=tab --tests=false ./...
 
-    - name Debug
+    - name: Debug
       run: ls -lRa; pwd; env
 
     - name: Test
